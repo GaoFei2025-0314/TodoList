@@ -1,0 +1,340 @@
+/* ── Reset & Foundation ── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f2f1f6;
+    --surface: rgba(255, 255, 255, 0.72);
+    --surface-solid: #ffffff;
+    --border: rgba(0, 0, 0, 0.06);
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --text-tertiary: #aeaeb2;
+    --accent: #007aff;
+    --accent-hover: #0071e3;
+    --danger: #ff3b30;
+    --done: #34c759;
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+    --font: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    --transition-fast: 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    --transition-spring: 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100dvh;
+    line-height: 1.47;
+}
+
+/* ── Screen-reader only ── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+/* ── Scene ── */
+.scene {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px 40px;
+    min-height: 100dvh;
+}
+
+/* ── App Shell ── */
+.app-shell {
+    width: 100%;
+    max-width: 480px;
+    animation: shell-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes shell-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Header ── */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 0 4px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.app-icon {
+    width: 28px;
+    height: 28px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.app-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.task-count {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    background: rgba(0, 0, 0, 0.03);
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+/* ── Input Row ── */
+.input-row {
+    margin-bottom: 16px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.input-wrapper:focus-within {
+    border-color: rgba(0, 122, 255, 0.4);
+    box-shadow: var(--shadow-md), 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    color: var(--text-tertiary);
+    pointer-events: none;
+    transition: color var(--transition-fast);
+}
+
+.input-wrapper:focus-within .input-icon {
+    color: var(--accent);
+}
+
+#todo-input {
+    width: 100%;
+    padding: 14px 16px 14px 42px;
+    border: none;
+    background: transparent;
+    font-family: var(--font);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    outline: none;
+}
+
+#todo-input::placeholder {
+    color: var(--text-tertiary);
+    font-weight: 300;
+}
+
+/* ── List ── */
+.list-container {
+    background: var(--surface);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+/* ── Todo Item ── */
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 0.5px solid var(--border);
+    transition: background var(--transition-fast);
+    animation: item-in 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.todo-item:hover {
+    background: rgba(0, 0, 0, 0.015);
+}
+
+@keyframes item-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.todo-item.slide-in {
+    animation: slide-in 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes slide-in {
+    from { opacity: 0; transform: translateY(-10px) scaleY(0.96); max-height: 0; }
+    to   { opacity: 1; transform: translateY(0) scaleY(1); max-height: 80px; }
+}
+
+.todo-item.slide-out {
+    animation: slide-out 280ms cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+@keyframes slide-out {
+    to { opacity: 0; transform: translateX(30px) scale(0.96); height: 0; padding: 0 16px; margin: 0; border: none; }
+}
+
+/* ── Checkbox ── */
+.check-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.check-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--text-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-spring);
+    color: transparent;
+}
+
+.check-circle svg {
+    width: 12px;
+    height: 12px;
+}
+
+.check-label:hover .check-circle {
+    border-color: var(--accent);
+}
+
+.todo-item.is-done .check-circle {
+    background: var(--done);
+    border-color: var(--done);
+    color: white;
+}
+
+/* ── Text ── */
+.todo-text {
+    flex: 1;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    transition: color var(--transition-fast), opacity var(--transition-fast);
+    user-select: none;
+}
+
+.todo-item.is-done .todo-text {
+    color: var(--text-tertiary);
+    text-decoration: line-through;
+    text-decoration-color: var(--text-tertiary);
+}
+
+/* ── Delete Button ── */
+.delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    opacity: 0;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.delete-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.todo-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    background: rgba(255, 59, 48, 0.1);
+    color: var(--danger);
+}
+
+/* ── Empty State ── */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: var(--text-tertiary);
+}
+
+.empty-state svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.4;
+}
+
+.empty-state p {
+    font-size: 0.875rem;
+    font-weight: 300;
+}
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+    .scene {
+        padding: 40px 16px 24px;
+    }
+    .app-header h1 {
+        font-size: 1.5rem;
+    }
+    .todo-item {
+        padding: 12px 14px;
+    }
+    .delete-btn {
+        opacity: 0.6;
+    }
+}
